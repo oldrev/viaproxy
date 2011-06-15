@@ -17,7 +17,7 @@
                 "name": "length", 
                 "converter": "str2int", 
                 "required": true, 
-                "char_type": "nums", 
+                "char_type": "alphanums", 
                 "label": "Packet Length"
             }, 
             {
@@ -49,7 +49,7 @@
                 "name": "host_serial", 
                 "converter": "ascii2str", 
                 "required": true, 
-                "char_type": "alphanums", 
+                "char_type": "string", 
                 "label": "Host Journal Serial"
             }, 
             {
@@ -84,7 +84,7 @@
                         "min_length": 1,
                         "converter": "ascii2str", 
                         "required": true, 
-                        "char_type": "alphanums", 
+                        "char_type": "string", 
                         "label": "Credit Account"
                     }, 
                     {
@@ -99,7 +99,7 @@
                         "min_length": 1,
                         "converter": "ascii2str", 
                         "required": true, 
-                        "char_type": "alphanums", 
+                        "char_type": "string", 
                         "label": "Debit Account"
                     }, 
                     {
