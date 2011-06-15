@@ -16,11 +16,11 @@ class Parser:
         self.node_parser = {
             "field" : self.parse_field_node,
             "container" : self.parse_container_node,
-            "constants" : self.parse_constants_node,
+            "constant" : self.parse_constant_node,
         }
         self.stack = []
         self.packet = packet
-        self.parser = pyparsing.StringStart() + self.__build_parser() + pyparsing.StringEnd()
+        self.parser = self.__build_parser()
 
     def parse_packet(self, bstring):
         self.stack = []
@@ -29,7 +29,7 @@ class Parser:
     #Build the PyParsing Parser
     def __build_parser(self):
         parser = self.parse_container_node(self.packet["content"])
-        print parser
+        pyparsing.StringStart() + parser +  pyparsing.StringEnd()
         return parser
 
     def parse_field_node(self, node):
@@ -52,24 +52,29 @@ class Parser:
         seq = pyparsing.Empty()
         for c in node["children"]:
             subparser = self.node_parser[c["node_type"]]
-            seq = seq + subparser(c)
-        parser = node["required"] and pyparsing.OneOrMore(seq) or pyparsing.ZeroOrMore(seq)
-        parser.setParseAction(
-                lambda str,loc,toks: self.stack.append(("container", node["name"], toks[0])))
-        return parser
+            seq += subparser(c)
+        #parser = node["required"] and pyparsing.OneOrMore(seq) or pyparsing.ZeroOrMore(seq)
+        #parser.setParseAction(
+        #        lambda str,loc,toks: self.stack.append(("container", node["name"], toks[0])))
+        return seq
 
-    def parse_constants_node(self, node):
-        assert node["node_type"] == "constants"
+    def parse_constant_node(self, node):
+        assert node["node_type"] == "constant"
         parser = pyparsing.Literal(node["value"])
         return parser
+
 
 import json
 
 string1 = b"123|TRADE9700|S20110613002|操作成功！|A123|A321|124.00|A111|A222|3.22|A333|A444|322.23||";
+
 with open("packet.js", "r") as f:
     packet1 = json.load(f)
     p = Parser(packet1)
+    print "Parser: ===========================>"
+    print p.parser
+    print "Tokens: ===========================>"
     parsed = p.parse_packet(string1)
     print parsed
-    print "Stack: =====================>"
+    print "Stack: ============================>"
     print p.stack
