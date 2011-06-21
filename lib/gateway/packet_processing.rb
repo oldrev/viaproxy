@@ -2,41 +2,46 @@
 #
 require "rsec"
 require "json"
-require "win32/process"
 require "pp"
 
 class PacketParser
   include Rsec::Helpers
 
   def initialize(packet_definition)
-    @delimiter = "|"
+    @delimiter = packet_definition["delimiter"]
     @packet_definition = packet_definition
     self.build_parser()
   end
 
   def build_parser()
     content = @packet_definition["content"]
-    @parser = self.make_container_parser(content)
+    elem = self.make_hash_parser(content)
+    @parser = seq(elem * (1..-1)).eof() do |arr|
+      arr[0][0]
+    end
   end
 
   def parse(string)
-    result = @parser.parse! string
-    return result[2][0]
+    result = @parser.parse!(string)
+    return result
   end
 
-  def make_container_parser(node)
-    parsers = []
-    node_name = node["name"]
-    for c in node["children"]
-      node_type = c["node_type"]
+  def make_parser_by_type(node)
+      node_type = node["node_type"]
       node_parser = nil
       if node_type == "constant" then
-        node_parser = self.make_constant_parser(c)
+        node_parser = self.make_constant_parser(node)
       elsif node_type == "field" then
-        node_parser = self.make_field_parser(c)
-      elsif node_type == "container" then
-        node_parser = self.make_container_parser(c) 
+        node_parser = self.make_field_parser(node)
+      elsif node_type == "group" then
+        node_parser = self.make_group_parser(node) 
       end
+  end
+
+  def make_hash_parser(nodes)
+    parsers = []
+    for c in nodes
+      node_parser = make_parser_by_type(c)
       parsers << node_parser
     end
     elem = seq(*parsers) do |arr|
@@ -45,17 +50,24 @@ class PacketParser
         type = e[0]
         if type == :field then
           hash[e[1]] = e[2]
-        elsif type == :container then
+        elsif type == :group then
           hash[e[1]] = e[2]
         else
         end
       end
       hash
     end
-    container_parser = seq(elem * (1..-1)) do |arr|
-      [:container, node_name, arr[0]]
+    return elem
+  end
+
+  def make_group_parser(node)
+    node_name = node["name"]
+    children = node["children"]
+    elem = self.make_hash_parser(children)
+    group_parser = seq(elem * (1..-1)) do |arr|
+      [:group, node_name, arr[0]]
     end
-    return container_parser
+    return group_parser
   end
 
   def make_constant_parser(node)
@@ -64,7 +76,11 @@ class PacketParser
 
   def make_field_parser(node)
     field_name = node["name"]
-    parser = /[^\|]+/.r { |token| [:field, field_name, token] }
+    max_length = node["max_length"]
+    min_length = node["min_length"]
+    delimiter_hex = @delimiter.to_s(16)
+    pattern = "[^\\x#{delimiter_hex}]{#{min_length},#{max_length}}"
+    parser = Regexp.new(pattern).r { |token| [:field, field_name, token] }
     return parser
   end
 
@@ -79,7 +95,7 @@ class PacketGenerator
   end
 
   def generate(msg)
-    content_def = @packet_definition["content"]["children"]
+    content_def = @packet_definition["content"]
     writer = StringIO.new
     for node in content_def
       type = node["node_type"]
@@ -88,9 +104,9 @@ class PacketGenerator
         self.generate_field(writer, node, msg[name])
       elsif type == "constant" then
         self.generate_constant(writer, node)
-      elsif type == "container" then
+      elsif type == "group" then
         name = node["name"]
-        self.generate_container(writer, node, msg[name])
+        self.generate_group(writer, node, msg[name])
       end
     end
     str = writer.string
@@ -98,18 +114,18 @@ class PacketGenerator
     return str
   end
 
-  def generate_container(writer, node, msg_part)
+  def generate_group(writer, node, msg_part)
     for item in msg_part
       node["children"].each do |subnode|
         type = subnode["node_type"]
         if type == "field" then
           name = subnode["name"]
-          generate_field(writer, subnode, item[name])
+          self.generate_field(writer, subnode, item[name])
         elsif type == "constant" then
-          generate_constant(writer, subnode)
-        elsif type == "container" then
+          self.generate_constant(writer, subnode)
+        elsif type == "group" then
           name = subnode["name"]
-          generate_container(writer, subnode, item[name])
+          self.generate_group(writer, subnode, item[name])
         end
       end
     end
@@ -129,7 +145,8 @@ end
 string1 = '123|TRADE9700|S20110613002|Succeed!|A111|A100|111.11|A222|A200|2.22|A333|A300|333.33||'
 
 f = IO.read("packet_desc.js")
-packet = JSON.parse(f)
+packets = JSON.parse(f)
+packet = packets[0]
 parser = PacketParser.new(packet)
 result = parser.parse(string1)
 p "Result:"
@@ -140,5 +157,3 @@ p string1
 string2 = gen.generate(result)
 p string2
 p string1 == string2
-
-
