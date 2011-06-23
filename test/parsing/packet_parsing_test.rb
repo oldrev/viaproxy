@@ -3,23 +3,42 @@ require 'json'
 
 $:.unshift "#{File.dirname(__FILE__)}/../../lib"
 
-require 'viaproxy/parsing/packet_parser'
-require 'viaproxy/parsing/packet_generator'
+require 'viaproxy/parsing'
 
 class PacketParsingTestCase < Test::Unit::TestCase
 
-  def test_parsing_and_generation
+  LENGTH = "123"
+  TRADE_CODE = "TRADE9700"
+  HOST_SERIAL = "S20110613002"
+  HOST_MSG = "Succeed!"
+  PACKET_BUFFER = 
+    "#{LENGTH}|#{TRADE_CODE}|#{HOST_SERIAL}|#{HOST_MSG}|A111|A100|111.11|A222|A200|2.22|A333|A300|333.33||"
 
+  def get_packet_definition()
     f = IO.read("packet_desc.js")
     packets = JSON.parse(f)
-    packet = packets[0]
+    return packets[0]
+  end
 
+  def test_parsing
+    packet = self.get_packet_definition()
     parser = ViaProxy::PacketParser.new(packet)
-    string1 = '123|TRADE9700|S20110613002|Succeed!|A111|A100|111.11|A222|A200|2.22|A333|A300|333.33||'
-    result = parser.parse(string1)
-    gen = ViaProxy::PacketGenerator.new(packet)
-    string2 = gen.generate(result)
-    assert(p string1 == string2)
+    result = parser.parse(PACKET_BUFFER)
+    assert(LENGTH == result['length'])
+    assert(HOST_SERIAL == result['host_serial'])
+    assert(TRADE_CODE == result['trade_code'])
+
+  end
+
+  def test_generation
+    packet = self.get_packet_definition()
+    #TODO result 写成手工的
+    parser = ViaProxy::PacketParser.new(packet)
+    result = parser.parse(PACKET_BUFFER)
+
+    generator = ViaProxy::PacketGenerator.new(packet)
+    string2 = generator.generate(result)
+    assert(PACKET_BUFFER == string2)
   end
 
 end
