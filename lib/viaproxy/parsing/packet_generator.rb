@@ -1,9 +1,8 @@
 #encoding: utf-8
 #
-require "json"
-require "pp"
 require 'stringio'
 
+require 'viaproxy/parsing/pipeline'
 
 module ViaProxy
 
@@ -11,6 +10,7 @@ module ViaProxy
 
     def initialize(packet_definition)
       @packet_definition = packet_definition
+      @pipeline = Pipeline.new()
     end
 
     def generate(msg)
@@ -56,11 +56,11 @@ module ViaProxy
 
     def generate_field(writer, node, field_value)
       #TODO 各种转换和后处理
-      writer.write(field_value)
+      encoded_field = @pipeline.encode(node, field_value)
+      writer.write(encoded_field)
     end
 
   end
-
 
 
 end

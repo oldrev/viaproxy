@@ -4,6 +4,8 @@ require "rsec"
 require "json"
 require "pp"
 
+require 'viaproxy/parsing/pipeline'
+
 module ViaProxy
 
   class PacketParser
@@ -13,6 +15,7 @@ module ViaProxy
       @delimiter = packet_definition["delimiter"]
       @packet_definition = packet_definition
       self.build_parser()
+      @pipeline = Pipeline.new()
     end
 
     def build_parser()
@@ -82,11 +85,14 @@ module ViaProxy
       min_length = node["min_length"]
       delimiter_hex = @delimiter.to_s(16)
       pattern = "[^\\x#{delimiter_hex}]{#{min_length},#{max_length}}"
-      parser = Regexp.new(pattern).r { |token| [:field, field_name, token] }
+      parser = Regexp.new(pattern).r do |token| 
+        #执行流水线
+        field_value = @pipeline.decode(node, token)
+        [:field, field_name, field_value] 
+      end
       return parser
     end
 
   end
-
 
 end

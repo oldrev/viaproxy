@@ -16,7 +16,8 @@
                 "max_length": 4, 
                 "name": "length", 
                 "required": true, 
-                "label": "Packet Length"
+                "label": "Packet Length",
+                "pipeline": ["atoi"]
             }, 
             {
                 "node_type": "constant", 
@@ -101,7 +102,8 @@
                     "required": true, 
                     "label": "Amount",
                     "max_length": 16, 
-                    "min_length": 1
+                    "min_length": 1,
+                    "pipeline": ["atod"]
                 }, 
                 {
                     "node_type": "constant", 
