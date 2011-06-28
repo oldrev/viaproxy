@@ -18,14 +18,14 @@ module ViaProxy
       writer = StringIO.new
       for node in content_def
         type = node["node_type"]
-        if type == "field" then
+        if type == "scale" then
           name = node["name"]
-          self.generate_field(writer, node, msg[name])
+          self.generate_scale(writer, node, msg[name])
         elsif type == "constant" then
           self.generate_constant(writer, node)
-        elsif type == "group" then
+        elsif type == "vector" then
           name = node["name"]
-          self.generate_group(writer, node, msg[name])
+          self.generate_vector(writer, node, msg[name])
         end
       end
       str = writer.string
@@ -33,18 +33,18 @@ module ViaProxy
       return str
     end
 
-    def generate_group(writer, node, msg_part)
+    def generate_vector(writer, node, msg_part)
       for item in msg_part
         node["children"].each do |subnode|
           type = subnode["node_type"]
-          if type == "field" then
+          if type == "scale" then
             name = subnode["name"]
-            self.generate_field(writer, subnode, item[name])
+            self.generate_scale(writer, subnode, item[name])
           elsif type == "constant" then
             self.generate_constant(writer, subnode)
-          elsif type == "group" then
+          elsif type == "vector" then
             name = subnode["name"]
-            self.generate_group(writer, subnode, item[name])
+            self.generate_vector(writer, subnode, item[name])
           end
         end
       end
@@ -54,10 +54,10 @@ module ViaProxy
       writer.write(node["value"])
     end
 
-    def generate_field(writer, node, field_value)
+    def generate_scale(writer, node, scale_value)
       #TODO 各种转换和后处理
-      encoded_field = @pipeline.encode(node, field_value)
-      writer.write(encoded_field)
+      encoded_scale = @pipeline.encode(node, scale_value)
+      writer.write(encoded_scale)
     end
 
   end

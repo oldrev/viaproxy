@@ -11,7 +11,7 @@
             {
                 "note": "", 
                 "variable_length": false, 
-                "node_type": "field", 
+                "node_type": "scale", 
                 "min_length": 1, 
                 "max_length": 4, 
                 "name": "length", 
@@ -26,7 +26,7 @@
             {
                 "note": "", 
                 "variable_length": false, 
-                "node_type": "field", 
+                "node_type": "scale", 
                 "max_length": 20, 
                 "min_length": 1, 
                 "name": "trade_code", 
@@ -39,7 +39,7 @@
             }, 
             {
                 "note": "", 
-                "node_type": "field", 
+                "node_type": "scale", 
                 "max_length": 20, 
                 "min_length": 1, 
                 "variable_length": true, 
@@ -54,7 +54,7 @@
             {
                 "note": "", 
                 "variable_length": true, 
-                "node_type": "field", 
+                "node_type": "scale", 
                 "max_length": 100, 
                 "min_length": 1, 
                 "name": "host_msg", 
@@ -66,12 +66,12 @@
                 "value": "|"
             }, 
             {
-                "node_type": "group", 
+                "node_type": "vector", 
                 "required": true, 
                 "children": [
                 {
                     "variable_length": true, 
-                    "node_type": "field", 
+                    "node_type": "scale", 
                     "name": "credit_account", 
                     "max_length": 30, 
                     "min_length": 1,
@@ -84,7 +84,7 @@
                 }, 
                 {
                     "variable_length": true, 
-                    "node_type": "field", 
+                    "node_type": "scale", 
                     "name": "debit_account", 
                     "max_length": 30, 
                     "min_length": 1,
@@ -97,7 +97,7 @@
                 }, 
                 {
                     "variable_length": true, 
-                    "node_type": "field", 
+                    "node_type": "scale", 
                     "name": "amount", 
                     "required": true, 
                     "label": "Amount",

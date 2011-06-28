@@ -36,10 +36,10 @@ module ViaProxy
       node_parser = nil
       if node_type == "constant" then
         node_parser = self.make_constant_parser(node)
-      elsif node_type == "field" then
-        node_parser = self.make_field_parser(node)
-      elsif node_type == "group" then
-        node_parser = self.make_group_parser(node) 
+      elsif node_type == "scale" then
+        node_parser = self.make_scale_parser(node)
+      elsif node_type == "vector" then
+        node_parser = self.make_vector_parser(node) 
       end
     end
 
@@ -53,9 +53,9 @@ module ViaProxy
         hash = {}
         for e in arr
           type = e[0]
-          if type == :field then
+          if type == :scale then
             hash[e[1]] = e[2]
-          elsif type == :group then
+          elsif type == :vector then
             hash[e[1]] = e[2]
           else
           end
@@ -65,30 +65,30 @@ module ViaProxy
       return elem
     end
 
-    def make_group_parser(node)
+    def make_vector_parser(node)
       node_name = node["name"]
       children = node["children"]
       elem = self.make_hash_parser(children)
-      group_parser = seq(elem * (1..-1)) do |arr|
-        [:group, node_name, arr[0]]
+      vector_parser = seq(elem * (1..-1)) do |arr|
+        [:vector, node_name, arr[0]]
       end
-      return group_parser
+      return vector_parser
     end
 
     def make_constant_parser(node)
       node["value"].r { |token| [:constant] }
     end
 
-    def make_field_parser(node)
-      field_name = node["name"]
+    def make_scale_parser(node)
+      scale_name = node["name"]
       max_length = node["max_length"]
       min_length = node["min_length"]
       delimiter_hex = @delimiter.to_s(16)
       pattern = "[^\\x#{delimiter_hex}]{#{min_length},#{max_length}}"
       parser = Regexp.new(pattern).r do |token| 
         #执行流水线
-        field_value = @pipeline.decode(node, token)
-        [:field, field_name, field_value] 
+        scale_value = @pipeline.decode(node, token)
+        [:scale, scale_name, scale_value] 
       end
       return parser
     end

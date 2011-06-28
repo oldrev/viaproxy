@@ -11,7 +11,7 @@
         {
             "note": "", 
             "variable_length": false, 
-            "node_type": "field", 
+            "node_type": "scale", 
             "min_length": 1, 
             "max_length": 4, 
             "name": "length", 
@@ -24,18 +24,18 @@
             "value": "|"
         }, 
         {
-            "node_type": "group", 
+            "node_type": "vector", 
             "required": true, 
             "name": "container",
             "children": [
                 {
-                    "node_type": "group", 
+                    "node_type": "vector", 
                     "required": true, 
                     "name": "details",
                     "children": [
                         {
                           "variable_length": true, 
-                          "node_type": "field", 
+                          "node_type": "scale", 
                           "name": "account", 
                           "max_length": 30, 
                           "min_length": 1,
@@ -48,7 +48,7 @@
                         },
                         {
                           "variable_length": true, 
-                          "node_type": "field", 
+                          "node_type": "scale", 
                           "name": "amount", 
                           "max_length": 30, 
                           "min_length": 1,
