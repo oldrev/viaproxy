@@ -47,9 +47,21 @@ module ViaProxy
   log.info "worker_url=[#{SERVER_CONFIG['worker_url']}]"
   log.info "entrance_url=[#{SERVER_CONFIG['entrance_url']}]"
 
+  def fork_service_process()
+    begin
+      yield
+    rescue => err
+      log.fatal("引发了未知异常，正在退出")
+      log.fatal(err)
+      Process.exit(-1)
+    end
+
+  end
+
   Process.fork do
     begin
       ViaProxy::broker_service(log, SERVER_CONFIG['worker_url'], SERVER_CONFIG['entrance_url'])
+      ViaProxy::server_service(log, SERVER_CONFIG['entrance_url'])
     rescue => err
       log.fatal("引发了未知异常，正在退出")
       log.fatal(err)
