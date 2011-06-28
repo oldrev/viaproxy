@@ -68,50 +68,50 @@
             {
                 "node_type": "vector", 
                 "required": true, 
+                "name": "details", 
+                "label": "Account Move Details",
                 "children": [
-                {
-                    "variable_length": true, 
-                    "node_type": "scale", 
-                    "name": "credit_account", 
-                    "max_length": 30, 
-                    "min_length": 1,
-                    "required": true, 
-                    "label": "Credit Account"
-                }, 
-                {
-                    "node_type": "constant", 
-                    "value": "|"
-                }, 
-                {
-                    "variable_length": true, 
-                    "node_type": "scale", 
-                    "name": "debit_account", 
-                    "max_length": 30, 
-                    "min_length": 1,
-                    "required": true, 
-                    "label": "Debit Account"
-                }, 
-                {
-                    "node_type": "constant", 
-                    "value": "|"
-                }, 
-                {
-                    "variable_length": true, 
-                    "node_type": "scale", 
-                    "name": "amount", 
-                    "required": true, 
-                    "label": "Amount",
-                    "max_length": 16, 
-                    "min_length": 1,
-                    "pipeline": ["atod"]
-                }, 
-                {
-                    "node_type": "constant", 
-                    "value": "|"
-                }
-                ], 
-                    "name": "details", 
-                    "label": "Account Move Details"
+                    {
+                        "variable_length": true, 
+                        "node_type": "scale", 
+                        "name": "credit_account", 
+                        "max_length": 30, 
+                        "min_length": 1,
+                        "required": true, 
+                        "label": "Credit Account"
+                    }, 
+                    {
+                        "node_type": "constant", 
+                        "value": "|"
+                    }, 
+                    {
+                        "variable_length": true, 
+                        "node_type": "scale", 
+                        "name": "debit_account", 
+                        "max_length": 30, 
+                        "min_length": 1,
+                        "required": true, 
+                        "label": "Debit Account"
+                    }, 
+                    {
+                        "node_type": "constant", 
+                        "value": "|"
+                    }, 
+                    {
+                        "variable_length": true, 
+                        "node_type": "scale", 
+                        "name": "amount", 
+                        "required": true, 
+                        "label": "Amount",
+                        "max_length": 16, 
+                        "min_length": 1,
+                        "pipeline": ["atod"]
+                    }, 
+                    {
+                        "node_type": "constant", 
+                        "value": "|"
+                    }
+                ]
             }, 
             {
                 "node_type": "constant", 
