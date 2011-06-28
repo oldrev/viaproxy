@@ -1,0 +1,73 @@
+[
+{
+    "variable_length": true, 
+    "id_path": "/host_serial", 
+    "delimiter": 124,
+    "name": "yy.accounting.req1", 
+    "method_path": "/trade_code", 
+    "has_length": false, 
+    "length_path": "/length",
+    "content": [
+        {
+            "note": "", 
+            "variable_length": false, 
+            "node_type": "field", 
+            "min_length": 1, 
+            "max_length": 4, 
+            "name": "length", 
+            "required": true, 
+            "label": "Packet Length",
+            "pipeline": ["atoi"]
+        }, 
+        {
+            "node_type": "constant", 
+            "value": "|"
+        }, 
+        {
+            "node_type": "group", 
+            "required": true, 
+            "name": "container",
+            "children": [
+                {
+                    "node_type": "group", 
+                    "required": true, 
+                    "name": "details",
+                    "children": [
+                        {
+                          "variable_length": true, 
+                          "node_type": "field", 
+                          "name": "account", 
+                          "max_length": 30, 
+                          "min_length": 1,
+                          "required": true, 
+                          "label": "Credit Account"
+                        }, 
+                        {
+                          "node_type": "constant", 
+                          "value": "|"
+                        },
+                        {
+                          "variable_length": true, 
+                          "node_type": "field", 
+                          "name": "amount", 
+                          "max_length": 30, 
+                          "min_length": 1,
+                          "required": true, 
+                          "label": "Amount",
+                          "pipeline": ["atod"]
+                        }, 
+                        {
+                          "node_type": "constant", 
+                          "value": "|"
+                        }
+                    ] 
+                },
+                {
+                    "node_type": "constant", 
+                    "value": "|"
+                }
+            ]
+        }
+     ]
+}
+]
