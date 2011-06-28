@@ -1,0 +1,144 @@
+# Logfile created on 2011-06-28 23:02:07 +0800 by logger.rb/25413
+I, [2011-06-28 23:02:07#5160]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:02:07#5160]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:02:07#5160]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:02:07#5160]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:02:07#5160]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:02:07#5160]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:02:10#5076]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:02:10#5076]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:02:10#5076]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:02:10#5076]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:02:10#5076]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:02:10#5076]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:02:10#5076]  INFO -- : WORKDER:	启动工人进程: ID=[1]
+I, [2011-06-28 23:02:10#3112]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:02:10#3112]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:02:10#3112]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:02:10#3112]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:02:10#3112]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:02:10#3112]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:02:10#1152]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:02:10#1152]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:02:10#1152]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:02:10#1152]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:02:10#1152]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:02:10#1152]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:02:10#1152]  INFO -- : WORKDER:	启动工人进程: ID=[0]
+I, [2011-06-28 23:02:10#3112]  INFO -- : SERVER:	服务器准备开始侦听 [0.0.0.0:9000]…
+I, [2011-06-28 23:02:10#6080]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:02:10#6080]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:02:10#6080]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:02:10#6080]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:02:10#6080]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:02:10#6080]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:02:10#6080]  INFO -- : BROKER:	启动请求代理进程...
+I, [2011-06-28 23:02:11#3484]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:02:11#3484]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:02:11#3484]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:02:11#3484]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:02:11#3484]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:02:11#3484]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:02:11#3484]  INFO -- : WORKDER:	启动工人进程: ID=[2]
+F, [2011-06-28 23:02:26#3112] FATAL -- : 引发了未知异常，正在退出
+F, [2011-06-28 23:02:26#3112] FATAL -- : undefined method `assert' for #<ViaProxy::ServerConnection:0x2e51b18> (NoMethodError)
+d:/dev/ruby/viaproxy/lib/viaproxy/server/server.rb:36:in `receive_data'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/eventmachine-1.0.0.beta.3-x86-mingw32/lib/eventmachine.rb:199:in `run_machine'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/eventmachine-1.0.0.beta.3-x86-mingw32/lib/eventmachine.rb:199:in `run'
+d:/dev/ruby/viaproxy/lib/viaproxy/server/server.rb:53:in `server_service'
+D:/dev/ruby/viaproxy/bin/start_viaproxy.rb:62:in `block in <module:ViaProxy>'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/win32-process-0.6.5/lib/win32/process.rb:1097:in `fork'
+D:/dev/ruby/viaproxy/bin/start_viaproxy.rb:60:in `<module:ViaProxy>'
+D:/dev/ruby/viaproxy/bin/start_viaproxy.rb:27:in `<main>'
+I, [2011-06-28 23:08:54#4464]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:08:54#4464]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:08:54#4464]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:08:54#4464]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:08:54#4464]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:08:54#4464]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:08:56#5796]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:08:56#5796]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:08:56#5796]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:08:56#5016]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:08:56#5016]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:08:56#5016]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:08:56#5796]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:08:56#5796]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:08:56#5796]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:08:56#5796]  INFO -- : WORKDER:	启动工人进程: ID=[1]
+I, [2011-06-28 23:08:56#5016]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:08:56#5016]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:08:56#5016]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:08:56#5016]  INFO -- : SERVER:	服务器准备开始侦听 [0.0.0.0:9000]…
+I, [2011-06-28 23:08:56#1488]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:08:56#1488]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:08:56#1488]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:08:56#1488]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:08:56#1488]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:08:56#1488]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:08:56#1488]  INFO -- : WORKDER:	启动工人进程: ID=[0]
+I, [2011-06-28 23:08:56#3404]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:08:56#3404]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:08:56#3404]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:08:56#4292]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:08:56#4292]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:08:56#4292]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:08:57#3404]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:08:57#3404]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:08:57#3404]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:08:57#3404]  INFO -- : BROKER:	启动请求代理进程...
+I, [2011-06-28 23:08:57#4292]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:08:57#4292]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:08:57#4292]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:08:57#4292]  INFO -- : WORKDER:	启动工人进程: ID=[2]
+F, [2011-06-28 23:09:02#5016] FATAL -- : 引发了未知异常，正在退出
+F, [2011-06-28 23:09:02#5016] FATAL -- : undefined method `assert' for #<ViaProxy::ServerConnection:0x2e37190> (NoMethodError)
+d:/dev/ruby/viaproxy/lib/viaproxy/server/server.rb:36:in `receive_data'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/eventmachine-1.0.0.beta.3-x86-mingw32/lib/eventmachine.rb:199:in `run_machine'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/eventmachine-1.0.0.beta.3-x86-mingw32/lib/eventmachine.rb:199:in `run'
+d:/dev/ruby/viaproxy/lib/viaproxy/server/server.rb:53:in `server_service'
+D:/dev/ruby/viaproxy/bin/start_viaproxy.rb:62:in `block in <module:ViaProxy>'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/win32-process-0.6.5/lib/win32/process.rb:1097:in `fork'
+D:/dev/ruby/viaproxy/bin/start_viaproxy.rb:60:in `<module:ViaProxy>'
+D:/dev/ruby/viaproxy/bin/start_viaproxy.rb:27:in `<main>'
+I, [2011-06-28 23:10:11#4268]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:10:11#4268]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:10:11#4268]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:10:11#4268]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:10:11#4268]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:10:11#4268]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:10:13#4920]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:10:13#4920]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:10:13#4920]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:10:13#4920]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:10:13#4920]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:10:13#4920]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:10:13#4920]  INFO -- : WORKDER:	启动工人进程: ID=[1]
+I, [2011-06-28 23:10:13#4164]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:10:13#4164]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:10:13#4164]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:10:13#4164]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:10:13#4164]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:10:13#4164]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:10:13#4164]  INFO -- : WORKDER:	启动工人进程: ID=[0]
+I, [2011-06-28 23:10:13#816]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:10:13#816]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:10:13#816]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:10:13#816]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:10:13#816]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:10:13#816]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:10:13#816]  INFO -- : SERVER:	服务器准备开始侦听 [0.0.0.0:9000]…
+I, [2011-06-28 23:10:14#5524]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:10:14#5524]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:10:14#5524]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:10:14#5524]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:10:14#5524]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:10:14#5524]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:10:14#5524]  INFO -- : BROKER:	启动请求代理进程...
+I, [2011-06-28 23:10:14#1808]  INFO -- : ViaProxy 开始启动...
+I, [2011-06-28 23:10:14#1808]  INFO -- : 服务器配置文件=[d:\dev\ruby\viaproxy/etc/server-conf.js]
+I, [2011-06-28 23:10:14#1808]  INFO -- : 工人进程配置文件=[d:\dev\ruby\viaproxy/etc/worker-conf.js]
+I, [2011-06-28 23:10:14#1808]  INFO -- : 配置文件加载完毕
+I, [2011-06-28 23:10:14#1808]  INFO -- : worker_url=[tcp://127.0.0.1:5559]
+I, [2011-06-28 23:10:14#1808]  INFO -- : entrance_url=[tcp://127.0.0.1:5560]
+I, [2011-06-28 23:10:14#1808]  INFO -- : WORKDER:	启动工人进程: ID=[2]

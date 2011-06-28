@@ -3,41 +3,34 @@
 require 'ffi-rzmq'
 require 'json'
 
-
-# The "ventilator" function generates a list of numbers from 0 to 1000, and 
-# sends those numbers down a zeromq "PUSH" connection to be processed by 
-# listening workers, in a round robin load balanced fashion.
-#
 if RUBY_PLATFORM.downcase.include?("mswin") or RUBY_PLATFORM.downcase.include?("mingw") then
   require 'win32/process'
   STDOUT.set_encoding Encoding.locale_charmap
 end
 
-f = IO.read("server-conf.js")
-SERVER_CONFIG = JSON.parse(f)
+module ViaProxy
 
-# 请求代理进程
-def broker(worker_url, entrance_url)
-  puts "BROKER:\t启动请求代理进程..."
-  context = ZMQ::Context.new(1)
+  # 请求代理进程  
+  def self.broker_service(log, worker_url, entrance_url)
+    log.info "BROKER:\t启动请求代理进程..."
 
-  clients = context.socket(ZMQ::XREP)
-  clients.bind(entrance_url)
+    context = ZMQ::Context.new(1)
 
-  workers = context.socket(ZMQ::XREQ)
-  workers.bind(worker_url)
+    clients = context.socket(ZMQ::XREP)
+    clients.bind(entrance_url)
 
-  ZMQ::Device.new(ZMQ::QUEUE, clients, workers) 
+    workers = context.socket(ZMQ::XREQ)
+    workers.bind(worker_url)
 
-  clients.close()
-  workers.close()
-  context.term()
+    ZMQ::Device.new(ZMQ::QUEUE, clients, workers) 
+
+    log.info "BROKER:\t请求代理进程准备退出"
+
+    clients.close()
+    workers.close()
+    context.term()
+
+    log.info "BROKER:\t请求代理进程成功退出"
+  end
+
 end
-
-Process.fork do
-  worker_url = SERVER_CONFIG["worker_url"]
-  entrance_url = SERVER_CONFIG["entrance_url"]
-  broker(worker_url, entrance_url)
-end
-
-puts "BROKER 主进程退出"
