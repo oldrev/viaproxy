@@ -4,6 +4,7 @@
 #
 
 require 'viaproxy/utils'
+require 'viaproxy/messaging'
 
 module ViaProxy
 

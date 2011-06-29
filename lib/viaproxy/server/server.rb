@@ -3,7 +3,7 @@
 require 'ffi-rzmq'
 require 'json'
 require 'eventmachine'
-require 'socket'  
+require 'em-zeromq'
 
 require 'viaproxy'
 
@@ -14,14 +14,16 @@ end
 
 module ViaProxy
 
-  def send_json(socket, obj)
-    msg = JSON::generate(obj)
-    socket.send_string(msg)
-  end
+  class SupervisorConnection 
 
-  def recv_json(socket)
-    msg = socket.recv_string()
-    return JSON::parse(msg)
+    attr_reader :received
+
+    def on_readable(socket, messages)
+      messages.each do |m|
+        puts m.copy_out_string
+      end
+    end
+
   end
 
   #EventMachine 接收服务器进程
@@ -48,17 +50,23 @@ module ViaProxy
   end
 
 
-  def self.server_service(log, entrance_url)
+  def self.server_service(log, entrance_url, supervisor_url)
 
     EventMachine::run do
 
-      host = '0.0.0.0'
-      port = 9000
-      log.info { "SERVER:\t服务器准备开始侦听 [#{host}:#{port}]…" }
+      emzmq_context = EM::ZeroMQ::Context.new(1)
+
+      log.info { "SERVER:\t开始连接到 Supervisor URL=[#{supervisor_url}]" }
+      pull_socket = emzmq_context.connect(ZMQ::SUB, supervisor_url, SupervisorConnection.new())
+      log.info { "SERVER:\t成功连接到 Supervisor URL=[#{supervisor_url}]" }
+
       zcontext = ZMQ::Context.new()
       zsocket = zcontext.socket(ZMQ::REQ)
       zsocket.connect(entrance_url)
 
+      host = '0.0.0.0'
+      port = 9000
+      log.info { "SERVER:\t服务器准备开始侦听 [#{host}:#{port}]…" }
       EventMachine::start_server(host, port, ServerConnection) do |conn|
         conn.set_zsocket(zsocket)
       end

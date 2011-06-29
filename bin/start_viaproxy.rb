@@ -20,7 +20,6 @@ VIAPROXY_HOME = ENV[ENV_KEY]
 $:.unshift "#{VIAPROXY_HOME}/lib"
 
 require 'viaproxy'
-require 'viaproxy/server/broker'
 require 'viaproxy/server/server'
 require 'viaproxy/server/worker'
 
@@ -34,14 +33,11 @@ module ViaProxy
   log.info { "ViaProxy 开始启动..." }
 
   SERVER_CONFIG_PATH = File.join(VIAPROXY_HOME, "etc", "server-conf.js")
-  WORKER_CONFIG_PATH = File.join(VIAPROXY_HOME, "etc", "worker-conf.js")
 
   log.info "服务器配置文件=[#{SERVER_CONFIG_PATH}]"
-  log.info "工人进程配置文件=[#{WORKER_CONFIG_PATH}]"
 
   puts "ViaProxy 正在启动..."
   SERVER_CONFIG = JSON::parse(IO.read(SERVER_CONFIG_PATH))
-  WORKER_CONFIG = JSON::parse(IO.read(WORKER_CONFIG_PATH))
 
   log.info "配置文件加载完毕"
   log.info "worker_url=[#{SERVER_CONFIG['worker_url']}]"
@@ -60,20 +56,9 @@ module ViaProxy
 
   Process.fork do
     begin
-      ViaProxy::broker_service(log, SERVER_CONFIG['worker_url'], SERVER_CONFIG['entrance_url'])
-      ViaProxy::server_service(log, SERVER_CONFIG['entrance_url'])
+      ViaProxy::server_service(log, SERVER_CONFIG['entrance_url'], SERVER_CONFIG['supervisor_url'])
     rescue => err
-      log.fatal("引发了未知异常，正在退出")
-      log.fatal(err)
-      Process.exit(-1)
-    end
-  end
-
-  Process.fork do
-    begin
-      ViaProxy::server_service(log, SERVER_CONFIG['entrance_url'])
-    rescue => err
-      log.fatal("引发了未知异常，正在退出")
+      log.fatal("SERVER 进程引发了未知异常，正在退出")
       log.fatal(err)
       Process.exit(-1)
     end
@@ -82,9 +67,9 @@ module ViaProxy
   for i in 0..2
     Process.fork do
       begin
-        ViaProxy::worker_service(log, i, WORKER_CONFIG['worker_url'])
+        ViaProxy::worker_service(log, i, SERVER_CONFIG['worker_url'], SERVER_CONFIG['supervisor_url'])
       rescue => err
-        log.fatal("引发了未知异常，正在退出")
+        log.fatal("WORKER 进程引发了未知异常，正在退出")
         log.fatal(err)
         Process.exit(-1)
       end
