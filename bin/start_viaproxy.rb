@@ -20,6 +20,7 @@ VIAPROXY_HOME = ENV[ENV_KEY]
 $:.unshift "#{VIAPROXY_HOME}/lib"
 
 require 'viaproxy'
+require 'viaproxy/server/broker'
 require 'viaproxy/server/server'
 require 'viaproxy/server/worker'
 
@@ -52,6 +53,16 @@ module ViaProxy
       Process.exit(-1)
     end
 
+  end
+
+  Process.fork do
+    begin
+      ViaProxy::broker_service(log, SERVER_CONFIG['worker_url'], SERVER_CONFIG['entrance_url'])
+    rescue => err
+      log.fatal("BROKER 进程引发了未知异常，正在退出")
+      log.fatal(err)
+      Process.exit(-1)
+    end
   end
 
   Process.fork do
