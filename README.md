@@ -9,7 +9,7 @@
 ## 相关依赖
 
 * rsec：一个非常出色的 Ruby 实现的解析库
-* ZeroMQ
+* FFI-ZeroMQ
 
 
 李维 <oldrev@gmail.com>
