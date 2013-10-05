@@ -6,6 +6,11 @@
 
 2010 的老玩具了。
 
+## 相关依赖
+
+* rsec：一个非常出色的 Ruby 实现的解析库
+* ZeroMQ
+
 
 李维 <oldrev@gmail.com>
 BSD Licensed.
